@@ -1,9 +1,19 @@
 package com.app.satpoint.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
+import static javax.persistence.GenerationType.AUTO;
+
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = AUTO)
     private int userId;
     private String username;
     private String password;
