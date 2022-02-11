@@ -18,7 +18,7 @@ public class LogonController {
     public LogonController(LogonService service) {
         this.service = service;
     }
-    @CrossOrigin
+    @CrossOrigin("*")
     @PostMapping
     public ResponseEntity<User> logon(@RequestBody UserDTO userDTO){
         User user = service.logon(userDTO);

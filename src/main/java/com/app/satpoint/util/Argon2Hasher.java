@@ -12,8 +12,8 @@ public class Argon2Hasher {
 
     private static Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
 //    private static String hash; //test
-
-    //test
+//
+////    test
 //    public static void main(String... args) {
 //        hash = hash("password");
 //        System.out.println(hash);
