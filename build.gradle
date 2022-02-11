@@ -22,6 +22,12 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     //testImplementation 'org.springframework.security:spring-security-test'
+    // https://mvnrepository.com/artifact/de.mkammerer/argon2-jvm
+    implementation group: 'de.mkammerer', name: 'argon2-jvm', version: '2.11'
+    // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '4.2.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 tasks.named('test') {
