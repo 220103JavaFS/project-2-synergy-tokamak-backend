@@ -5,13 +5,10 @@ import com.app.satpoint.models.UserDTO;
 import com.app.satpoint.services.LogonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/logon")
+@RequestMapping("/")
 public class LogonController {
     private LogonService service;
 
@@ -21,6 +18,7 @@ public class LogonController {
     public LogonController(LogonService service) {
         this.service = service;
     }
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<User> logon(@RequestBody UserDTO userDTO){
         User user = service.logon(userDTO);
