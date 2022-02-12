@@ -11,7 +11,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(columnDefinition = "serial")
     private int id;
     @Column(nullable = false, unique = true)
     private String username;
@@ -36,8 +35,8 @@ public class User {
         return id;
     }
 
-    public void setId(int userId) {
-        this.id = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -96,7 +95,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + id +
+                "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
