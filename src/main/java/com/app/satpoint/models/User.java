@@ -11,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private int id;
+    private long id;
     @Column(nullable = false, unique = true)
     private String username;
     private String password;
@@ -22,7 +22,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String username, String password, String firstName, String lastName, String email) {
+    public User(long id, String username, String password, String firstName, String lastName, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -31,11 +31,11 @@ public class User {
         this.email = email;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
