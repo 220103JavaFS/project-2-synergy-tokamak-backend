@@ -3,7 +3,6 @@ package com.app.satpoint.models;
 import javax.persistence.*;
 import java.util.Objects;
 
-import static javax.persistence.GenerationType.AUTO;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -12,7 +11,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private int userId;
+    @Column(columnDefinition = "serial")
+    private int id;
     @Column(nullable = false, unique = true)
     private String username;
     private String password;
@@ -23,8 +23,8 @@ public class User {
     public User() {
     }
 
-    public User(int userId, String username, String password, String firstName, String lastName, String email) {
-        this.userId = userId;
+    public User(int id, String username, String password, String firstName, String lastName, String email) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -32,12 +32,12 @@ public class User {
         this.email = email;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getId() {
+        return id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(int userId) {
+        this.id = userId;
     }
 
     public String getUsername() {
@@ -85,18 +85,18 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getUserId() == user.getUserId() && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getEmail(), user.getEmail());
+        return getId() == user.getId() && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getEmail(), user.getEmail());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUserId(), getUsername(), getPassword(), getFirstName(), getLastName(), getEmail());
+        return Objects.hash(getId(), getUsername(), getPassword(), getFirstName(), getLastName(), getEmail());
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
+                "userId=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +

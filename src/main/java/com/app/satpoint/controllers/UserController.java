@@ -26,7 +26,7 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseEntity<List<User>> newUser(@RequestBody User user){
+    public ResponseEntity<User> newUser(@RequestBody User user){
         if(userService.addUser(user)){
             return ResponseEntity.status(201).build();
         }
