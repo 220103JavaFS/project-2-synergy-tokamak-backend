@@ -1,6 +1,5 @@
 package com.app.satpoint.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -13,13 +12,13 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private long commentID;
+    private long commentId;
 
     @Column(nullable = false, unique = true)
-    private int userID;
+    private int userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="satID", nullable = false)
+    @JoinColumn(name="satId", nullable = false)
     private Satellite satellite; //might use a URL too?
 
     private int numFavorites;
@@ -34,9 +33,9 @@ public class Comment {
     }
 
     @Autowired
-    public Comment(long commentID, int userID, Satellite satellite, int numFavorites, String comment, int likes, int dislikes) {
-        this.commentID = commentID;
-        this.userID = userID;
+    public Comment(long commentId, int userId, Satellite satellite, int numFavorites, String comment, int likes, int dislikes) {
+        this.commentId = commentId;
+        this.userId = userId;
         this.satellite = satellite;
         this.numFavorites = numFavorites;
         this.comment = comment;
@@ -44,20 +43,20 @@ public class Comment {
         this.dislikes = dislikes;
     }
 
-    public long getCommentID() {
-        return commentID;
+    public long getCommentId() {
+        return commentId;
     }
 
-    public void setCommentID(long commentID) {
-        this.commentID = commentID;
+    public void setCommentId(long commentID) {
+        this.commentId = commentID;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userID) {
+        this.userId = userID;
     }
 
     public Satellite getSatellite() {
@@ -103,8 +102,8 @@ public class Comment {
     @Override
     public String toString() {
         return "Comment{" +
-                "commentID=" + commentID +
-                ", userID=" + userID +
+                "commentID=" + commentId +
+                ", userID=" + userId +
                 ", satellite=" + satellite +
                 ", numFavorites=" + numFavorites +
                 ", comment='" + comment + '\'' +
