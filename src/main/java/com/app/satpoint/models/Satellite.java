@@ -1,6 +1,7 @@
 package com.app.satpoint.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "satellites")
+@Table(name = "satellites", uniqueConstraints = {@UniqueConstraint(columnNames = {"noradId"})})
 public class Satellite {
 
     @Id
@@ -19,8 +20,11 @@ public class Satellite {
     private long satId;
 
     @Column(nullable = false, unique = true)
+    private int noradId;
+
+    @Column(nullable = false, unique = true)
     private String satName;
-    private String satPicture; //might use a URL instead?
+    private String satPicture; //Url for sat picture
     private int numFavorites;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "satellite")
@@ -30,9 +34,10 @@ public class Satellite {
     public Satellite() {
     }
 
-    @Autowired
-    public Satellite(long satId, String satName, String satPicture, int numFavorites, List<Comment> comments) {
+
+    public Satellite(long satId, int noradId, String satName, String satPicture, int numFavorites, List<Comment> comments) {
         this.satId = satId;
+        this.noradId = noradId;
         this.satName = satName;
         this.satPicture = satPicture;
         this.numFavorites = numFavorites;
@@ -45,6 +50,14 @@ public class Satellite {
 
     public void setSatId(long satID) {
         this.satId = satID;
+    }
+
+    public int getNoradId() {
+        return noradId;
+    }
+
+    public void setNoradId(int noradId) {
+        this.noradId = noradId;
     }
 
     public String getSatName() {
@@ -69,6 +82,14 @@ public class Satellite {
 
     public void setNumFavorites(int numFavorites) {
         this.numFavorites = numFavorites;
+    }
+
+    public void incrementFavorites(){
+        this.numFavorites++;
+    }
+
+    public void decrementFavorites(){
+        this.numFavorites = Math.max(0, --numFavorites);
     }
 
     public List<Comment> getComments() {

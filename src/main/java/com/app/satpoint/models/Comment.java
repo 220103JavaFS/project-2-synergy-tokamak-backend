@@ -1,5 +1,6 @@
 package com.app.satpoint.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -14,49 +15,42 @@ public class Comment {
     @GeneratedValue(strategy = IDENTITY)
     private long commentId;
 
-    @Column(nullable = false, unique = true)
-    private int userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="satId", nullable = false)
-    private Satellite satellite; //might use a URL too?
-
-    private int numFavorites;
+//    @JoinColumn(name="satId", nullable = false)
+    @JsonBackReference
+    private Satellite satellite;
 
     @Column(nullable = false, unique = true)
     private String comment;
 
-    private int likes;
-    private int dislikes;
 
     public Comment() {
     }
 
-    @Autowired
-    public Comment(long commentId, int userId, Satellite satellite, int numFavorites, String comment, int likes, int dislikes) {
+    public Comment(long commentId, User user, Satellite satellite, String comment) {
         this.commentId = commentId;
-        this.userId = userId;
+        this.user = user;
         this.satellite = satellite;
-        this.numFavorites = numFavorites;
         this.comment = comment;
-        this.likes = likes;
-        this.dislikes = dislikes;
     }
 
     public long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(long commentID) {
-        this.commentId = commentID;
+    public void setCommentId(long commentId) {
+        this.commentId = commentId;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userID) {
-        this.userId = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Satellite getSatellite() {
@@ -67,14 +61,6 @@ public class Comment {
         this.satellite = satellite;
     }
 
-    public int getNumFavorites() {
-        return numFavorites;
-    }
-
-    public void setNumFavorites(int numFavorites) {
-        this.numFavorites = numFavorites;
-    }
-
     public String getComment() {
         return comment;
     }
@@ -83,32 +69,14 @@ public class Comment {
         this.comment = comment;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public int getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(int dislikes) {
-        this.dislikes = dislikes;
-    }
 
     @Override
     public String toString() {
         return "Comment{" +
-                "commentID=" + commentId +
-                ", userID=" + userId +
+                "commentId=" + commentId +
+                ", user=" + user +
                 ", satellite=" + satellite +
-                ", numFavorites=" + numFavorites +
                 ", comment='" + comment + '\'' +
-                ", likes=" + likes +
-                ", dislikes=" + dislikes +
                 '}';
     }
 }
