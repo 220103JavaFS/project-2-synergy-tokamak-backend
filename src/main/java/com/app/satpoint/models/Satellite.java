@@ -31,6 +31,9 @@ public class Satellite {
     @JsonManagedReference
     private List<Comment> comments;
 
+    @ManyToMany
+    private List<User> favedBy;
+
     public Satellite() {
     }
 

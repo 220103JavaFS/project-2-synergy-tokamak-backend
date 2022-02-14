@@ -1,6 +1,7 @@
 package com.app.satpoint.models;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -18,6 +19,9 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+
+    @ManyToMany
+    private List<Satellite> favorites;
 
     public User() {
     }

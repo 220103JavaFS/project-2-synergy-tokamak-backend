@@ -2,7 +2,9 @@ package com.app.satpoint.services;
 
 
 import com.app.satpoint.models.Satellite;
+import com.app.satpoint.models.User;
 import com.app.satpoint.repos.SatelliteDAO;
+import com.app.satpoint.repos.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +18,17 @@ public class SatelliteService {
 
 
     private SatelliteDAO satelliteDAO;
+    private UserDAO userDAO;
 
     public SatelliteService() {
     }
 
     @Autowired
-    public SatelliteService(SatelliteDAO satelliteDAO) {
+    public SatelliteService(SatelliteDAO satelliteDAO, UserDAO userDAO) {
         this.satelliteDAO = satelliteDAO;
+        this.userDAO = userDAO;
     }
+
 
     public List<Satellite> getAllSatellites(){
         return satelliteDAO.findAll();
@@ -73,7 +78,11 @@ public class SatelliteService {
     }
 
     public List<Satellite> getSatelliteByUserId(int userId) {
-        Optional<List<Satellite>> satelliteOptional = satelliteDAO.findSatellitesByUserId(userId);
+        Optional<User> userOptional = userDAO.findById(userId);
+        if(!userOptional.isPresent()){
+            return new ArrayList<>();
+        }
+        Optional<List<Satellite>> satelliteOptional = satelliteDAO.findSatellitesByFavedBy(userOptional.get());
         if(satelliteOptional.isPresent()){
             return satelliteOptional.get();
         }

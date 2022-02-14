@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface SatelliteDAO  extends JpaRepository<Satellite, Long> {
 
     Optional<Satellite> findSatelliteByNoradId(int noradId);
-    Optional<List<Satellite>> findSatellitesByUserId(int userId);
+    Optional<List<Satellite>> findSatellitesByFavedBy(User user);
     Optional<List<Satellite>> findTop5ByOrderByNumFavoritesDesc();
 }
