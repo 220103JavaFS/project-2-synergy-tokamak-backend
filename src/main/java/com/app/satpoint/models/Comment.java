@@ -19,7 +19,7 @@ public class Comment {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="satId", nullable = false)
+    @JoinColumn(name="satId", nullable = false)
     @JsonBackReference
     private Satellite satellite;
 

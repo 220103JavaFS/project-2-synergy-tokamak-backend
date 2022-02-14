@@ -5,6 +5,8 @@ import com.app.satpoint.repos.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class UserService {
@@ -26,4 +28,16 @@ public class UserService {
         }
         return true;
     }
+
+    public User getUserByUsername(String username){
+        Optional<User> userOptional = userDAO.findUserByUsername(username);
+        if(userOptional.isPresent()){
+            return userOptional.get();
+        }
+        else{
+            return new User();
+        }
+    }
+
+
 }
