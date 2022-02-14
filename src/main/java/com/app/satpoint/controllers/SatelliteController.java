@@ -33,6 +33,11 @@ public class SatelliteController {
         return ResponseEntity.ok().body(satService.getSatelliteByNoradId(noradId));
     }
 
+    @GetMapping("/userID/{userID}")
+    public ResponseEntity<List<Satellite>> getSatekkuteByUserId(@RequestParam("userID") int userId){
+        return ResponseEntity.ok().body(satService.getSatelliteByUserId(userId));
+    }
+
     @PostMapping()
     public ResponseEntity addSatellite(@RequestBody Satellite satellite){
         if(satService.addSatellite(satellite)){
@@ -62,6 +67,11 @@ public class SatelliteController {
         else {
             return ResponseEntity.status(400).build();
         }
+    }
+
+    @GetMapping("/favorites")
+    public ResponseEntity<List<Satellite>> getTopFavorites(){
+        return ResponseEntity.ok().body(satService.findTop5ByOrderByNumFavoritesDesc());
     }
 
 

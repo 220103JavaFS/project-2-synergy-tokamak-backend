@@ -6,6 +6,7 @@ import com.app.satpoint.repos.SatelliteDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.SimpleAttributeSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +70,22 @@ public class SatelliteService {
             return true;
         }
         return false;
+    }
+
+    public List<Satellite> getSatelliteByUserId(int userId) {
+        Optional<List<Satellite>> satelliteOptional = satelliteDAO.findSatellitesByUserId(userId);
+        if(satelliteOptional.isPresent()){
+            return satelliteOptional.get();
+        }
+        return new ArrayList<>();
+    }
+
+    public List<Satellite> findTop5ByOrderByNumFavoritesDesc() {
+        Optional<List<Satellite>> satelliteOptional = satelliteDAO.findTop5ByOrderByNumFavoritesDesc();
+        if(satelliteOptional.isPresent()){
+            return satelliteOptional.get();
+        }
+        return new ArrayList<>();
     }
 
 
