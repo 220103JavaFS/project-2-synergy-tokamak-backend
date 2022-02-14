@@ -20,7 +20,7 @@ public class User {
     private String lastName;
     private String email;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Satellite> favorites;
 
     public User() {

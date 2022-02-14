@@ -31,7 +31,7 @@ public class Satellite {
     @JsonManagedReference
     private List<Comment> comments;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_favorites",
             joinColumns = @JoinColumn(name = "favorites_sat_id"),
