@@ -32,6 +32,11 @@ public class Satellite {
     private List<Comment> comments;
 
     @ManyToMany
+    @JoinTable(
+            name = "users_favorites",
+            joinColumns = @JoinColumn(name = "favorites_sat_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> favedBy;
 
     public Satellite() {
