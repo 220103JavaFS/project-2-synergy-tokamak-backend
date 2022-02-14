@@ -1,8 +1,12 @@
 package com.app.satpoint.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -21,12 +25,13 @@ public class User {
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Satellite> favorites;
+    @JsonBackReference
+    private Set<Satellite> favorites;
 
     public User() {
     }
 
-    public User(long id, String username, String password, String firstName, String lastName, String email, List<Satellite> favorites) {
+    public User(long id, String username, String password, String firstName, String lastName, String email, Set<Satellite> favorites) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -84,11 +89,11 @@ public class User {
         this.email = email;
     }
 
-    public List<Satellite> getFavorites() {
+    public Set<Satellite> getFavorites() {
         return favorites;
     }
 
-    public void setFavorites(List<Satellite> favorites) {
+    public void setFavorites(Set<Satellite> favorites) {
         this.favorites = favorites;
     }
 

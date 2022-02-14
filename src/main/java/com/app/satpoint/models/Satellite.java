@@ -1,5 +1,6 @@
 package com.app.satpoint.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,19 +38,21 @@ public class Satellite {
             joinColumns = @JoinColumn(name = "favorites_sat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+    @JsonManagedReference
     private List<User> favedBy;
 
     public Satellite() {
     }
 
 
-    public Satellite(long satId, int noradId, String satName, String satPicture, int numFavorites, List<Comment> comments) {
+    public Satellite(long satId, int noradId, String satName, String satPicture, int numFavorites, List<Comment> comments, List<User> favedBy) {
         this.satId = satId;
         this.noradId = noradId;
         this.satName = satName;
         this.satPicture = satPicture;
         this.numFavorites = numFavorites;
         this.comments = comments;
+        this.favedBy = favedBy;
     }
 
     public long getSatId() {
@@ -106,6 +109,14 @@ public class Satellite {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public List<User> getFavedBy() {
+        return favedBy;
+    }
+
+    public void setFavedBy(List<User> favedBy) {
+        this.favedBy = favedBy;
     }
 
     @Override

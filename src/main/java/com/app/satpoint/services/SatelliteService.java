@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.SimpleAttributeSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class SatelliteService {
@@ -77,12 +75,12 @@ public class SatelliteService {
         return false;
     }
 
-    public List<Satellite> getSatelliteByUserId(int userId) {
-        Optional<User> userOptional = userDAO.findById(userId);
+    public Set<Satellite> getFavoriteSatellites(int userId) {
+        Optional<User> userOptional = userDAO.findById((long)userId);
         if(userOptional.isPresent()){
             return userOptional.get().getFavorites();
         }
-        return new ArrayList<>();
+        return Collections.emptySet();
     }
 
     public List<Satellite> findTop5ByOrderByNumFavoritesDesc() {

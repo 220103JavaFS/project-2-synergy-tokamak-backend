@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/satellites")
@@ -33,9 +34,9 @@ public class SatelliteController {
         return ResponseEntity.ok().body(satService.getSatelliteByNoradId(noradId));
     }
 
-    @GetMapping("/userID/{userId}")
-    public ResponseEntity<List<Satellite>> getSatelliteByUserId(@PathVariable("userId") int userId){
-        return ResponseEntity.ok().body(satService.getSatelliteByUserId(userId));
+    @GetMapping("/userId/{userId}")
+    public ResponseEntity<Set<Satellite>> getUserFavoriteSatellites(@PathVariable("userId") int userId){
+        return ResponseEntity.ok().body(satService.getFavoriteSatellites(userId));
     }
 
     @PostMapping()
