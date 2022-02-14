@@ -26,13 +26,14 @@ public class User {
     public User() {
     }
 
-    public User(long id, String username, String password, String firstName, String lastName, String email) {
+    public User(long id, String username, String password, String firstName, String lastName, String email, List<Satellite> favorites) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.favorites = favorites;
     }
 
     public long getId() {
@@ -83,17 +84,20 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return getId() == user.getId() && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getEmail(), user.getEmail());
+    public List<Satellite> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Satellite> favorites) {
+        this.favorites = favorites;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getPassword(), getFirstName(), getLastName(), getEmail());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(favorites, user.favorites);
     }
 
     @Override
@@ -105,6 +109,12 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", favorites=" + favorites +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, firstName, lastName, email, favorites);
     }
 }

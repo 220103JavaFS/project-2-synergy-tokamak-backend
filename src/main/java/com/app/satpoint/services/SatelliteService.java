@@ -79,12 +79,8 @@ public class SatelliteService {
 
     public List<Satellite> getSatelliteByUserId(int userId) {
         Optional<User> userOptional = userDAO.findById(userId);
-        if(!userOptional.isPresent()){
-            return new ArrayList<>();
-        }
-        Optional<List<Satellite>> satelliteOptional = satelliteDAO.findSatellitesByFavedBy(userOptional.get());
-        if(satelliteOptional.isPresent()){
-            return satelliteOptional.get();
+        if(userOptional.isPresent()){
+            return userOptional.get().getFavorites();
         }
         return new ArrayList<>();
     }
