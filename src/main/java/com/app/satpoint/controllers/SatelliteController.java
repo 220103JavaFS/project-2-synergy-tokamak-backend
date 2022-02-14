@@ -33,8 +33,8 @@ public class SatelliteController {
         return ResponseEntity.ok().body(satService.getSatelliteByNoradId(noradId));
     }
 
-    @GetMapping("/userID/{userID}")
-    public ResponseEntity<List<Satellite>> getSatekkuteByUserId(@RequestParam("userID") int userId){
+    @GetMapping("/userID/{userId}")
+    public ResponseEntity<List<Satellite>> getSatelliteByUserId(@PathVariable("userId") int userId){
         return ResponseEntity.ok().body(satService.getSatelliteByUserId(userId));
     }
 
