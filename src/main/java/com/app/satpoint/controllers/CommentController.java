@@ -1,6 +1,7 @@
 package com.app.satpoint.controllers;
 
 import com.app.satpoint.models.Comment;
+import com.app.satpoint.models.CommentDTO;
 import com.app.satpoint.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,8 @@ public class CommentController {
         return ResponseEntity.ok().body(commentList);
     }
 
+
+    //uses comment class to create new comment
     @PostMapping()
     public ResponseEntity<List<Comment>> addComment(@RequestBody Comment comment){
         List<Comment> commentList = commentService.addComment(comment);
@@ -47,5 +50,26 @@ public class CommentController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.accepted().body(commentList);
+    }
+
+    //uses commentDTO to create a new comment
+    @PostMapping("/new")
+    public ResponseEntity<List<Comment>> addCommentByNoradId(@RequestBody CommentDTO commentDTO){
+        List<Comment> commentList = commentService.addCommentByNoradId(commentDTO.getNoradId(), commentDTO.getUserId(), commentDTO.getMessage());
+        if(commentList.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.accepted().body(commentList);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteComment(@PathVariable("id") int commentId){
+        if(commentService.deleteComment(commentId)){
+            return ResponseEntity.ok().build();
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 }

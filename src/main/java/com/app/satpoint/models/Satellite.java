@@ -38,17 +38,12 @@ public class Satellite {
     private Set<Comment> comments;
 
     @ManyToMany(fetch = FetchType.LAZY)
-
     @JoinTable(
             name = "users_favorites",
             joinColumns = @JoinColumn(name = "favorites_sat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-
     @JsonBackReference
-
-   //@JsonManagedReference
-    //@JsonBackReference
     private List<User> favedBy;
 
     public Satellite() {

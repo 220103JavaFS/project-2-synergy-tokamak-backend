@@ -84,4 +84,42 @@ public class CommentService {
             return new ArrayList<>();
         }
     }
+
+    public List<Comment> addCommentByNoradId(int noradId, int userId, String commentMessage) {
+        try{
+
+            User user = userService.getUserByUserId(userId);
+            if(user.getUsername() == null){
+                return new ArrayList<>();
+            }
+            Satellite satellite = satService.getSatelliteByNoradId(noradId);
+            if(satellite.getSatName() == null){
+                return new ArrayList<>();
+            }
+            Comment comment = new Comment();
+            comment.setCommentId(0);
+            comment.setUser(user);
+            comment.setSatellite(satellite);
+            comment.setComment(commentMessage);
+            commentDAO.save(comment);
+            return getCommentsForSatellite(satellite.getNoradId());
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean deleteComment(int commentId){
+        try{
+            Optional<Comment> commentOptional = commentDAO.findById((long)commentId);
+            if(commentOptional.isPresent()){
+               commentDAO.delete(commentOptional.get());
+               return true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

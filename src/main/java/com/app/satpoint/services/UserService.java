@@ -39,5 +39,15 @@ public class UserService {
         }
     }
 
+    public User getUserByUserId(int userId){
+        Optional<User> userOptional = userDAO.findById((long)userId);
+        if(userOptional.isPresent()){
+            return userOptional.get();
+        }
+        else{
+            return new User();
+        }
+    }
+
 
 }
