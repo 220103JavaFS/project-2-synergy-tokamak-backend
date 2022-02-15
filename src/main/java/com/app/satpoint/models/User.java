@@ -27,6 +27,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private String AboutMe;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favedBy")
 //    @JsonBackReference
@@ -36,7 +37,7 @@ public class User {
     public User() {
     }
 
-    public User(long id, String username, String password, String firstName, String lastName, String email, Set<Satellite> favorites) {
+    public User(long id, String username, String password, String firstName, String lastName, String email, Set<Satellite> favorites, String AboutMe) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -44,6 +45,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.favorites = favorites;
+        this.AboutMe = AboutMe;
     }
 
     public long getId() {
@@ -102,6 +104,14 @@ public class User {
         this.favorites = favorites;
     }
 
+    public String getAboutMe() {
+        return AboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        AboutMe = aboutMe;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,6 +124,7 @@ public class User {
 //    public int hashCode() {
 //        return Objects.hash(id, username, password, firstName, lastName, email, favorites);
 //    }
+
 
 //    @Override
 //    public String toString() {
