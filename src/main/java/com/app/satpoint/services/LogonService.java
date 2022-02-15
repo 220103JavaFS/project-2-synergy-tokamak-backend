@@ -28,9 +28,9 @@ public class LogonService {
             if(user.isPresent()) {
                 //need to check hashed pw to inputted pw
                 //looking into Spring Security for now using Argon2Hasher
-                if (Argon2Hasher.verify(user.get().getPassword(), userDTO.password)) {
+//                if (Argon2Hasher.verify(user.get().getPassword(), userDTO.password)) {
                     return user.get();
-                }
+//                }
             }
         } catch(Exception e) {
             System.out.println(e.getMessage());

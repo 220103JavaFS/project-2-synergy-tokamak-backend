@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/")
 public class LogonController {
     private LogonService service;
@@ -18,7 +19,7 @@ public class LogonController {
     public LogonController(LogonService service) {
         this.service = service;
     }
-    @CrossOrigin("*")
+
     @PostMapping
     public ResponseEntity<User> logon(@RequestBody UserDTO userDTO){
         User user = service.logon(userDTO);

@@ -1,7 +1,9 @@
 package com.app.satpoint.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,6 +14,8 @@ import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "satId")
 @Entity
 @Table(name = "satellites", uniqueConstraints = {@UniqueConstraint(columnNames = {"noradId"})})
 public class Satellite {
@@ -33,12 +37,14 @@ public class Satellite {
     private List<Comment> comments;
 
     @ManyToMany(fetch = FetchType.LAZY)
+
     @JoinTable(
             name = "users_favorites",
             joinColumns = @JoinColumn(name = "favorites_sat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    @JsonManagedReference
+   //@JsonManagedReference
+    //@JsonBackReference
     private List<User> favedBy;
 
     public Satellite() {
@@ -119,14 +125,14 @@ public class Satellite {
         this.favedBy = favedBy;
     }
 
-    @Override
-    public String toString() {
-        return "Satellite{" +
-                "satID=" + satId +
-                ", satName='" + satName + '\'' +
-                ", satPicture=" + satPicture +
-                ", numFavorites=" + numFavorites +
-                ", comments=" + comments +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Satellite{" +
+//                "satID=" + satId +
+//                ", satName='" + satName + '\'' +
+//                ", satPicture=" + satPicture +
+//                ", numFavorites=" + numFavorites +
+//                ", comments=" + comments +
+//                '}';
+//    }
 }
