@@ -3,6 +3,7 @@ package com.app.satpoint.controllers;
 
 import com.app.satpoint.models.User;
 import com.app.satpoint.services.UserService;
+import com.app.satpoint.util.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,9 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> newUser(@RequestBody User user){
+        user.password = Encryption.stringToMD5(user.password);
         if(userService.addUser(user)){
+
             return ResponseEntity.status(201).build();
         }
         return ResponseEntity.status(400).build();
