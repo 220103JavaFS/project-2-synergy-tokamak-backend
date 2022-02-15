@@ -44,7 +44,7 @@ public class SatelliteService {
         try{
             satellite.setNumFavorites(0);
             satellite.setSatId(0);
-            satellite.setComments(new ArrayList<>());
+            satellite.setComments(Collections.emptySet());
             satelliteDAO.save(satellite);
             return true;
         } catch (Exception e){

@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -30,7 +31,7 @@ public class Satellite {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "satellite")
     @JsonManagedReference
-    private List<Comment> comments;
+    private Set<Comment> comments;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -38,14 +39,14 @@ public class Satellite {
             joinColumns = @JoinColumn(name = "favorites_sat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    @JsonManagedReference
+    @JsonBackReference
     private List<User> favedBy;
 
     public Satellite() {
     }
 
 
-    public Satellite(long satId, int noradId, String satName, String satPicture, int numFavorites, List<Comment> comments, List<User> favedBy) {
+    public Satellite(long satId, int noradId, String satName, String satPicture, int numFavorites, Set<Comment> comments, List<User> favedBy) {
         this.satId = satId;
         this.noradId = noradId;
         this.satName = satName;
@@ -103,11 +104,11 @@ public class Satellite {
         this.numFavorites = Math.max(0, --numFavorites);
     }
 
-    public List<Comment> getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 
