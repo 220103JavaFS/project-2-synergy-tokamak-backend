@@ -11,6 +11,7 @@ import javax.persistence.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -44,13 +45,13 @@ public class Satellite {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     @JsonBackReference
-    private List<User> favedBy;
+    private Set<User> favedBy;
 
     public Satellite() {
     }
 
 
-    public Satellite(long satId, int noradId, String satName, String satPicture, int numFavorites, Set<Comment> comments, List<User> favedBy) {
+    public Satellite(long satId, int noradId, String satName, String satPicture, int numFavorites, Set<Comment> comments, Set<User> favedBy) {
         this.satId = satId;
         this.noradId = noradId;
         this.satName = satName;
@@ -116,15 +117,28 @@ public class Satellite {
         this.comments = comments;
     }
 
-    public List<User> getFavedBy() {
+    public Set<User> getFavedBy() {
         return favedBy;
     }
 
-    public void setFavedBy(List<User> favedBy) {
+    public void setFavedBy(Set<User> favedBy) {
         this.favedBy = favedBy;
     }
 
-//    @Override
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Satellite satellite = (Satellite) o;
+        return satId == satellite.satId && noradId == satellite.noradId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(satId, noradId, satName, satPicture, numFavorites, comments, favedBy);
+    }
+
+    //    @Override
 //    public String toString() {
 //        return "Satellite{" +
 //                "satID=" + satId +

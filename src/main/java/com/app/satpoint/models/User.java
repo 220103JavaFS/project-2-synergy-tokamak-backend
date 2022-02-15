@@ -29,7 +29,7 @@ public class User {
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favedBy")
-    //@JsonBackReference
+//    @JsonBackReference
     //@JsonManagedReference
     private Set<Satellite> favorites;
 
@@ -107,13 +107,13 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(favorites, user.favorites);
+        return id == user.id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password, firstName, lastName, email, favorites);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, username, password, firstName, lastName, email, favorites);
+//    }
 
 //    @Override
 //    public String toString() {
