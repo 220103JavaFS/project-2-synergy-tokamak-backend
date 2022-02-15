@@ -1,7 +1,9 @@
 package com.app.satpoint.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "users")
 public class User {
@@ -24,8 +28,9 @@ public class User {
     private String lastName;
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JsonBackReference
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favedBy")
+    //@JsonBackReference
+    //@JsonManagedReference
     private Set<Satellite> favorites;
 
     public User() {
@@ -106,20 +111,22 @@ public class User {
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", favorites=" + favorites +
-                '}';
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(id, username, password, firstName, lastName, email, favorites);
     }
+
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", firstName='" + firstName + '\'' +
+//                ", lastName='" + lastName + '\'' +
+//                ", email='" + email + '\'' +
+//                ", favorites=" + favorites +
+//                '}';
+//    }
+
+
 }

@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface LogonDao extends JpaRepository<User,Integer> {
+public interface LogonDao extends JpaRepository<User,Long> {
     public Optional<User> findByUsername(String username);
 }
