@@ -1,5 +1,6 @@
 package com.app.satpoint.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class User {
     private String AboutMe;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favedBy")
+    @JsonIgnore
     private Set<Satellite> favorites;
 
     public User() {

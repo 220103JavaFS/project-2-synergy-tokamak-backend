@@ -1,8 +1,6 @@
 package com.app.satpoint.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
@@ -40,6 +38,7 @@ public class Satellite {
             joinColumns = @JoinColumn(name = "favorites_sat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+    @JsonIgnore
     private List<User> favedBy;
 
     public Satellite() {
