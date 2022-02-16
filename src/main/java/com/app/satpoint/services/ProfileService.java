@@ -27,6 +27,7 @@ public class ProfileService {
             if(userz.isPresent()){
                 User u = userz.get();
             if(u != null) {
+                u.setAboutMe(user.getAboutMe());
                 if (AppValidator.isValidEmail(user.getEmail())) {
                     u.setEmail(user.getEmail());
                 }
