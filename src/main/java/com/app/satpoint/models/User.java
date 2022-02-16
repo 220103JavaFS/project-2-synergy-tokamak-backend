@@ -1,12 +1,8 @@
 package com.app.satpoint.models;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,8 +26,6 @@ public class User {
     private String AboutMe;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favedBy")
-//    @JsonBackReference
-    //@JsonManagedReference
     private Set<Satellite> favorites;
 
     public User() {
@@ -120,24 +114,24 @@ public class User {
         return id == user.id;
     }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, username, password, firstName, lastName, email, favorites);
-//    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, firstName, lastName, email, favorites);
+    }
 
 
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", firstName='" + firstName + '\'' +
-//                ", lastName='" + lastName + '\'' +
-//                ", email='" + email + '\'' +
-//                ", favorites=" + favorites +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", favorites=" + favorites +
+                '}';
+    }
 
 
 }

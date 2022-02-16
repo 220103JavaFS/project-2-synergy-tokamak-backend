@@ -1,15 +1,11 @@
 package com.app.satpoint.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -44,14 +40,14 @@ public class Satellite {
             joinColumns = @JoinColumn(name = "favorites_sat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    @JsonBackReference
-    private Set<User> favedBy;
+    private List<User> favedBy;
 
     public Satellite() {
     }
 
 
-    public Satellite(long satId, int noradId, String satName, String satPicture, int numFavorites, Set<Comment> comments, Set<User> favedBy) {
+    public Satellite(long satId, int noradId, String satName, String satPicture, int numFavorites,
+                     Set<Comment> comments, List<User> favedBy) {
         this.satId = satId;
         this.noradId = noradId;
         this.satName = satName;
@@ -117,11 +113,11 @@ public class Satellite {
         this.comments = comments;
     }
 
-    public Set<User> getFavedBy() {
+    public List<User> getFavedBy() {
         return favedBy;
     }
 
-    public void setFavedBy(Set<User> favedBy) {
+    public void setFavedBy(List<User> favedBy) {
         this.favedBy = favedBy;
     }
 
@@ -130,7 +126,7 @@ public class Satellite {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Satellite satellite = (Satellite) o;
-        return satId == satellite.satId && noradId == satellite.noradId;
+        return satId == satellite.satId && noradId == satellite.noradId && numFavorites == satellite.numFavorites && Objects.equals(satName, satellite.satName) && Objects.equals(satPicture, satellite.satPicture) && Objects.equals(comments, satellite.comments) && Objects.equals(favedBy, satellite.favedBy);
     }
 
     @Override
@@ -138,14 +134,14 @@ public class Satellite {
         return Objects.hash(satId, noradId, satName, satPicture, numFavorites, comments, favedBy);
     }
 
-    //    @Override
-//    public String toString() {
-//        return "Satellite{" +
-//                "satID=" + satId +
-//                ", satName='" + satName + '\'' +
-//                ", satPicture=" + satPicture +
-//                ", numFavorites=" + numFavorites +
-//                ", comments=" + comments +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Satellite{" +
+                "satID=" + satId +
+                ", satName='" + satName + '\'' +
+                ", satPicture=" + satPicture +
+                ", numFavorites=" + numFavorites +
+                ", comments=" + comments +
+                '}';
+    }
 }
