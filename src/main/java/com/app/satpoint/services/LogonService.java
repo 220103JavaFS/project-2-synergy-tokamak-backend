@@ -5,6 +5,7 @@ import com.app.satpoint.models.UserDTO;
 import com.app.satpoint.repos.LogonDao;
 import com.app.satpoint.util.AppValidator;
 import com.app.satpoint.util.Argon2Hasher;
+import com.app.satpoint.util.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
@@ -26,11 +27,10 @@ public class LogonService {
             AppValidator.isValidUserName(userDTO.username);
             Optional<User> user = dao.findByUsername(userDTO.username);
             if(user.isPresent()) {
-                //need to check hashed pw to inputted pw
-                //looking into Spring Security for now using Argon2Hasher
-//                if (Argon2Hasher.verify(user.get().getPassword(), userDTO.password)) {
+                String hashedpw = Encryption.stringToMD5(userDTO.password);
+                if (hashedpw.equals(user.get().password)) {
                     return user.get();
-//                }
+                }
             }
         } catch(Exception e) {
             System.out.println(e.getMessage());
