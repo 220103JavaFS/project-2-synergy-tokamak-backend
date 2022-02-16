@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -14,7 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
         property = "satId")
 @Entity
 @Table(name = "satellites", uniqueConstraints = {@UniqueConstraint(columnNames = {"noradId"})})
-public class Satellite {
+public class Satellite implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
