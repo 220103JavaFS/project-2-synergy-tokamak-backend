@@ -10,7 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "user")
@@ -58,5 +62,44 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
+    }
+
+
+    //Test session endpoints
+
+    //creates a session if one doesn't already exist and adds attributes to it,
+    @PostMapping("/session")
+    public ResponseEntity testSession(@RequestParam(value = "message", required = false) String message, HttpSession session){
+        List<String> messages = (List<String>) session.getAttribute("messages");
+        if(messages == null){
+            messages = new ArrayList<>();
+        }
+        messages.add(message);
+        session.setAttribute("messages",messages);
+        return ResponseEntity.ok().build();
+    }
+
+    //Gets the session messages attribute
+    @GetMapping("/session")
+    public ResponseEntity<Object> testGetSession(HttpServletRequest request){
+        //checking if the session is null
+        if(request.getSession(false) == null){
+            return ResponseEntity.status(HttpStatus.PAYMENT_REQUIRED).eTag("SessionMIA").build();
+        }
+
+        //checking if the messages attribute is null
+        Object value = request.getSession(false).getAttribute("messages");
+        if(value != null){
+            return ResponseEntity.ok().body(value);
+        }
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+
+    }
+
+    //invalidates the session
+    @PostMapping("/sessionkill")
+    public ResponseEntity killSession(HttpServletRequest request){
+        request.getSession(false).invalidate();
+        return ResponseEntity.ok().build();
     }
 }
