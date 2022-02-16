@@ -46,6 +46,8 @@ public class LogonController {
     @PostMapping
     public ResponseEntity<Object> logon(@RequestBody UserDTO userDTO, HttpSession session){
 
+        ArrayList<String> result = new ArrayList<>();
+
         User user = service.logon(userDTO);
         if(user != null){
             session.setAttribute("userId", Long.toString(user.getId()));
@@ -53,7 +55,12 @@ public class LogonController {
             session.setAttribute("firstName", user.getFirstName());
             session.setAttribute("lastName", user.getLastName());
             session.setAttribute("email", user.getEmail());
-            return ResponseEntity.ok().build();
+            result.add(Long.toString(user.getId()));
+            result.add(user.getUsername());
+            result.add(user.getFirstName());
+            result.add(user.getLastName());
+            result.add(user.getEmail());
+            return ResponseEntity.ok().body(result);
         }
         return ResponseEntity.status(401).build();
     }
