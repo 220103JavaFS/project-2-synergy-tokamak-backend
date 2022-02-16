@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "comments")
-public class Comment {
+public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

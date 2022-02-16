@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import static javax.persistence.GenerationType.IDENTITY;
         property = "id")
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

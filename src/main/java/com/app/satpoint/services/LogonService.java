@@ -39,4 +39,12 @@ public class LogonService {
         return null;
     }
 
+    public User getUser(String username){
+        Optional<User> user = dao.findByUsername(username);
+        if(user.isPresent()) {
+            return user.get();
+        }
+        return null;
+    }
+
 }
