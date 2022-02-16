@@ -70,6 +70,7 @@ public class UserController {
     //creates a session if one doesn't already exist and adds attributes to it,
     @PostMapping("/session")
     public ResponseEntity testSession(@RequestParam(value = "message", required = false) String message, HttpSession session){
+
         List<String> messages = (List<String>) session.getAttribute("messages");
         if(messages == null){
             messages = new ArrayList<>();

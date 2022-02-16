@@ -36,20 +36,24 @@ public class LogonController {
     @GetMapping("/getUser/{username}")
     public ResponseEntity<User> getUser(HttpSession session, @PathVariable("username") String username,
             HttpServletRequest request){
-        System.out.println(username);
-        if(request.getSession(false) == null) {
-            return ResponseEntity.status(401).build();
-        }
+//        System.out.println(username);
+//        if(request.getSession(false) == null) {
+//            return ResponseEntity.status(401).build();
+//        }
         return ResponseEntity.status(200).body(service.getUser(username));
     }
 
     @PostMapping
-    public ResponseEntity<Object> logon(@RequestBody UserDTO userDTO, HttpSession session, HttpServletRequest request){
+    public ResponseEntity<Object> logon(@RequestBody UserDTO userDTO, HttpSession session){
+
         User user = service.logon(userDTO);
         if(user != null){
-            sessionController.testSession(Long.toString(user.getId()), session);
-            sessionController.testSession(user.getUsername(), session);
-            return sessionController.testGetSession(request);
+            session.setAttribute("userId", Long.toString(user.getId()));
+            session.setAttribute("username", user.getUsername());
+            session.setAttribute("firstName", user.getFirstName());
+            session.setAttribute("lastName", user.getLastName());
+            session.setAttribute("email", user.getEmail());
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.status(401).build();
     }
@@ -57,6 +61,7 @@ public class LogonController {
 
     @PostMapping("/logout")
     public ResponseEntity<User> logout(HttpServletRequest request){
-        return sessionController.killSession(request);
+        request.getSession(false).invalidate();
+        return ResponseEntity.ok().build();
     }
 }

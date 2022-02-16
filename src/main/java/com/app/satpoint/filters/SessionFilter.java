@@ -35,12 +35,12 @@ public class SessionFilter implements Filter {
             List<String> noSessionRequired = new ArrayList<>();
             noSessionRequired.add("/");
             noSessionRequired.add("/logout");
+            noSessionRequired.add("/user");
             noSessionRequired.add("/user/session");
             noSessionRequired.add("/user/sessionkill");
 
             //if request is for endpoints that don't need a session
             if(noSessionRequired.contains(req.getRequestURI())){
-                req.getSession(true);
                 chain.doFilter(request, response);
             }else {
                 //unauthorized
