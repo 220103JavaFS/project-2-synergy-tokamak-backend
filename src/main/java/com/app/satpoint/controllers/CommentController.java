@@ -25,13 +25,6 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @CrossOrigin(value = "http://localhost:4200", allowCredentials = "true")
-    @RequestMapping(path="/new", method=RequestMethod.OPTIONS)
-    public ResponseEntity getOptions() {
-        System.out.println("in options");
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping("/noradId/{noradId}")
     public ResponseEntity<List<Comment>> getCommentsForSatellite(@PathVariable("noradId") int noradId){
         List<Comment> commentList = commentService.getCommentsForSatellite(noradId);
