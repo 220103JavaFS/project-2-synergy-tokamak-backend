@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(value = "http://localhost:4200", allowCredentials = "true")
 @RequestMapping("/")
 public class LogonController {
     private LogonService service;
@@ -44,7 +44,7 @@ public class LogonController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> logon(@RequestBody UserDTO userDTO, HttpSession session){
+    public ResponseEntity<Object> logon(@RequestBody UserDTO userDTO, HttpSession session, HttpServletRequest request){
 
         ArrayList<String> result = new ArrayList<>();
 
@@ -55,12 +55,13 @@ public class LogonController {
             session.setAttribute("firstName", user.getFirstName());
             session.setAttribute("lastName", user.getLastName());
             session.setAttribute("email", user.getEmail());
-            result.add(Long.toString(user.getId()));
-            result.add(user.getUsername());
-            result.add(user.getFirstName());
-            result.add(user.getLastName());
-            result.add(user.getEmail());
-            return ResponseEntity.ok().body(result);
+
+//            result.add(Long.toString(user.getId()));
+//            result.add(user.getUsername());
+//            return ResponseEntity.ok().body(result);
+                return ResponseEntity.ok().build();
+//            sessionController.testSession(Long.toString(user.getId()), session);
+//            return sessionController.testGetSession(request);
         }
         return ResponseEntity.status(401).build();
     }

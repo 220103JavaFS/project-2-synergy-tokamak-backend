@@ -12,7 +12,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/satellites")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(value = "http://localhost:4200", allowCredentials = "true")
 public class SatelliteController {
 
     private SatelliteService satService;

@@ -28,15 +28,26 @@ public class Comment implements Serializable {
     @Column(nullable = false, unique = true)
     private String comment;
 
+    private String date;
+
 
     public Comment() {
     }
 
-    public Comment(long commentId, User user, Satellite satellite, String comment) {
+    public Comment(long commentId, User user, Satellite satellite, String comment, String date) {
         this.commentId = commentId;
         this.user = user;
         this.satellite = satellite;
         this.comment = comment;
+        this.date = date;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public long getCommentId() {
@@ -71,7 +82,6 @@ public class Comment implements Serializable {
         this.comment = comment;
     }
 
-
     @Override
     public String toString() {
         return "Comment{" +
@@ -79,6 +89,7 @@ public class Comment implements Serializable {
                 ", user=" + user +
                 ", satellite=" + satellite +
                 ", comment='" + comment + '\'' +
+                ", date='" + date + '\'' +
                 '}';
     }
 }
