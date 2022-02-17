@@ -117,11 +117,11 @@ public class User implements Serializable{
         return id == user.id;
     }
 
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, firstName, lastName, email, favorites);
+        return Objects.hash(id, username, password, firstName, lastName, email, AboutMe, favorites);
     }
-
 
     @Override
     public String toString() {
@@ -132,9 +132,8 @@ public class User implements Serializable{
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", AboutMe='" + AboutMe + '\'' +
                 ", favorites=" + favorites +
                 '}';
     }
-
-
 }
