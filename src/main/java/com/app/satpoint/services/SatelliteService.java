@@ -78,15 +78,26 @@ public class SatelliteService {
     public Set<Satellite> getFavoriteSatellites(int userId) {
         Optional<User> userOptional = userDAO.findById((long)userId);
         if(userOptional.isPresent()){
-            return userOptional.get().getFavorites();
+            Set<Satellite> satSet = userOptional.get().getFavorites();
+            satSet.forEach(satellite -> {satellite.setFavorite(true);});
+            return satSet;
         }
         return Collections.emptySet();
     }
 
-    public List<Satellite> findTop5ByOrderByNumFavoritesDesc() {
-        Optional<List<Satellite>> satelliteOptional = satelliteDAO.findTop5ByOrderByNumFavoritesDesc();
+    public List<Satellite> findTop10ByOrderByNumFavoritesDesc(int userId) {
+        Optional<List<Satellite>> satelliteOptional = satelliteDAO.findTop10ByOrderByNumFavoritesDesc();
+        Optional<User> userOptional = userDAO.findById((long)userId);
+        User user = userOptional.get();
         if(satelliteOptional.isPresent()){
-            return satelliteOptional.get();
+            //set the isFavorite Var for each Sat in the list for the requesting user
+            List<Satellite> satList = satelliteOptional.get();
+            satList.forEach(satellite -> {
+                if(user.getFavorites().contains(satellite)){
+                    satellite.setFavorite(true);
+                }
+            });
+            return satList;
         }
         return new ArrayList<>();
     }

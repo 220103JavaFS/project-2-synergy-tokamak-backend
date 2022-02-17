@@ -29,6 +29,10 @@ public class Satellite implements Serializable {
     private String satPicture; //Url for sat picture
     private int numFavorites;
 
+    //is set to true when returning if the user who requested this satellite has it in their favorites
+    @Transient
+    private boolean isFavorite = false;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "satellite")
     @JsonManagedReference
     private Set<Comment> comments;
@@ -41,6 +45,8 @@ public class Satellite implements Serializable {
     )
     @JsonIgnore
     private List<User> favedBy;
+
+
 
     public Satellite() {
     }
@@ -121,12 +127,21 @@ public class Satellite implements Serializable {
         this.favedBy = favedBy;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    //Keep comparison of sats as just satId and noradId
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Satellite satellite = (Satellite) o;
-        return satId == satellite.satId && noradId == satellite.noradId && numFavorites == satellite.numFavorites && Objects.equals(satName, satellite.satName) && Objects.equals(satPicture, satellite.satPicture) && Objects.equals(comments, satellite.comments) && Objects.equals(favedBy, satellite.favedBy);
+        return satId == satellite.satId && noradId == satellite.noradId;
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
 
@@ -72,8 +73,15 @@ public class SatelliteController {
     }
 
     @GetMapping("/favorites")
-    public ResponseEntity<List<Satellite>> getTopFavorites(){
-        return ResponseEntity.ok().body(satService.findTop5ByOrderByNumFavoritesDesc());
+    public ResponseEntity<List<Satellite>> getTopFavorites(HttpServletRequest request){
+        int userId = 0;
+        try {
+            userId = Integer.parseInt((String) request.getSession(false).getAttribute("userId"));
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
+
+        return ResponseEntity.ok().body(satService.findTop10ByOrderByNumFavoritesDesc(userId));
     }
 
 

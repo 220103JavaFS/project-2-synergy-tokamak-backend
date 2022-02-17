@@ -50,11 +50,11 @@ public class LogonController {
 
         User user = service.logon(userDTO);
         if(user != null){
-//            session.setAttribute("userId", Long.toString(user.getId()));
-//            session.setAttribute("username", user.getUsername());
-//            session.setAttribute("firstName", user.getFirstName());
-//            session.setAttribute("lastName", user.getLastName());
-//            session.setAttribute("email", user.getEmail());
+            session.setAttribute("userId", Long.toString(user.getId()));
+            session.setAttribute("username", user.getUsername());
+            session.setAttribute("firstName", user.getFirstName());
+            session.setAttribute("lastName", user.getLastName());
+            session.setAttribute("email", user.getEmail());
 
             result.add(Long.toString(user.getId()));
             result.add(user.getUsername());

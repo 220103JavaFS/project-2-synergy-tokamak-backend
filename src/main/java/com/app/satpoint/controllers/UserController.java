@@ -43,8 +43,15 @@ public class UserController {
     }
 
     @PostMapping("/fav/add")
-    public ResponseEntity addFavoriteSatellites(@RequestBody FavDTO favorite){
-        if(userService.addFavoriteSatellite(favorite.getUserId(),favorite.getNoradId())){
+    public ResponseEntity addFavoriteSatellites(@RequestBody FavDTO favorite, HttpServletRequest request){
+        int userId = 0;
+        try {
+            userId = Integer.parseInt((String) request.getSession(false).getAttribute("userId"));
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
+
+        if(userService.addFavoriteSatellite(userId,favorite.getNoradId())){
             return ResponseEntity.ok().build();
         }
         else {
@@ -54,8 +61,16 @@ public class UserController {
     }
 
     @PostMapping("/fav/remove")
-    public ResponseEntity removeFavoriteSatellite(@RequestBody FavDTO favorite){
-        if(userService.deleteFavoriteSatellite(favorite.getUserId(), favorite.getNoradId())){
+    public ResponseEntity removeFavoriteSatellite(@RequestBody FavDTO favorite, HttpServletRequest request){
+        int userId = 0;
+        try {
+            userId = Integer.parseInt((String) request.getSession(false).getAttribute("userId"));
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
+
+
+        if(userService.deleteFavoriteSatellite(userId, favorite.getNoradId())){
             return ResponseEntity.ok().build();
         }
         else {

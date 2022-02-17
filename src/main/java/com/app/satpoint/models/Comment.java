@@ -2,6 +2,7 @@ package com.app.satpoint.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Reference;
 
 import javax.persistence.*;
 
@@ -24,6 +25,10 @@ public class Comment implements Serializable {
     @JoinColumn(name="satId", nullable = false)
     @JsonBackReference
     private Satellite satellite;
+
+    @Transient
+
+    private int satNorad;
 
     @Column(nullable = false, unique = false)
     private String comment;

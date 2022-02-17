@@ -11,5 +11,5 @@ public interface SatelliteDAO  extends JpaRepository<Satellite, Long> {
 
     Optional<Satellite> findSatelliteByNoradId(int noradId);
     Optional<List<Satellite>> findSatellitesByFavedBy(User user);
-    Optional<List<Satellite>> findTop5ByOrderByNumFavoritesDesc();
+    Optional<List<Satellite>> findTop10ByOrderByNumFavoritesDesc();
 }
