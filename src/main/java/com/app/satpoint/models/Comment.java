@@ -25,7 +25,7 @@ public class Comment implements Serializable {
     @JsonBackReference
     private Satellite satellite;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private String comment;
 
     private String date;

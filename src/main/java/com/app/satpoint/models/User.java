@@ -19,6 +19,7 @@ public class User implements Serializable{
     private long id;
     @Column(nullable = false, unique = true)
     private String username;
+    @JsonIgnore
     public String password;
     private String firstName;
     private String lastName;
