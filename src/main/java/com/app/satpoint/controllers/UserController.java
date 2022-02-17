@@ -5,6 +5,7 @@ import com.app.satpoint.models.FavDTO;
 import com.app.satpoint.models.User;
 import com.app.satpoint.services.UserService;
 import com.app.satpoint.util.Encryption;
+import com.app.satpoint.util.Argon2Hasher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,9 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> newUser(@RequestBody User user){
         user.password = Encryption.stringToMD5(user.password);
+        System.out.println(user);
         if(userService.addUser(user)){
+
 
             return ResponseEntity.status(201).build();
         }
