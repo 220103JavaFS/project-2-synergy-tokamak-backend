@@ -1,7 +1,5 @@
 package com.app.satpoint.models;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,8 +8,8 @@ import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 @Entity
 @Table(name = "users")
 public class User implements Serializable{
@@ -25,7 +23,7 @@ public class User implements Serializable{
     private String firstName;
     private String lastName;
     private String email;
-    private String AboutMe;
+    private String aboutMe;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favedBy")
     @JsonIgnore
@@ -34,7 +32,7 @@ public class User implements Serializable{
     public User() {
     }
 
-    public User(long id, String username, String password, String firstName, String lastName, String email, Set<Satellite> favorites, String AboutMe) {
+    public User(long id, String username, String password, String firstName, String lastName, String email, Set<Satellite> favorites, String aboutMe) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -42,7 +40,7 @@ public class User implements Serializable{
         this.lastName = lastName;
         this.email = email;
         this.favorites = favorites;
-        this.AboutMe = AboutMe;
+        this.aboutMe = aboutMe;
     }
 
     public long getId() {
@@ -102,11 +100,11 @@ public class User implements Serializable{
     }
 
     public String getAboutMe() {
-        return AboutMe;
+        return aboutMe;
     }
 
     public void setAboutMe(String aboutMe) {
-        AboutMe = aboutMe;
+        this.aboutMe = aboutMe;
     }
 
     @Override
@@ -120,7 +118,7 @@ public class User implements Serializable{
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, firstName, lastName, email, AboutMe, favorites);
+        return Objects.hash(id, username, password, firstName, lastName, email, aboutMe, favorites);
     }
 
     @Override
@@ -132,7 +130,7 @@ public class User implements Serializable{
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", AboutMe='" + AboutMe + '\'' +
+                ", AboutMe='" + aboutMe + '\'' +
                 ", favorites=" + favorites +
                 '}';
     }
