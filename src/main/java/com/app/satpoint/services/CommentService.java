@@ -85,7 +85,7 @@ public class CommentService {
         }
     }
 
-    public List<Comment> addCommentByNoradId(int noradId, int userId, String commentMessage) {
+    public List<Comment> addCommentByNoradId(int noradId, int userId, String commentMessage, String date) {
         try{
 
             User user = userService.getUserByUserId(userId);
@@ -101,6 +101,7 @@ public class CommentService {
             comment.setUser(user);
             comment.setSatellite(satellite);
             comment.setComment(commentMessage);
+            comment.setDate(date);
             commentDAO.save(comment);
             return getCommentsForSatellite(satellite.getNoradId());
 

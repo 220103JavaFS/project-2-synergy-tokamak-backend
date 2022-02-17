@@ -57,7 +57,8 @@ public class CommentController {
     //uses commentDTO to create a new comment
     @PostMapping("/new")
     public ResponseEntity<List<Comment>> addCommentByNoradId(@RequestBody CommentDTO commentDTO){
-        List<Comment> commentList = commentService.addCommentByNoradId(commentDTO.getNoradId(), commentDTO.getUserId(), commentDTO.getMessage());
+        List<Comment> commentList = commentService.addCommentByNoradId(commentDTO.getNoradId(),
+                commentDTO.getUserId(), commentDTO.getMessage(), commentDTO.getDate());
         if(commentList.isEmpty()){
             return ResponseEntity.notFound().build();
         }
