@@ -29,7 +29,11 @@ public class SessionFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        if ("OPTIONS".equals(req.getMethod())) {
+            res.setStatus(HttpServletResponse.SC_OK);
+            chain.doFilter(request,response);
+        } else {
         if(req.getSession(false)==null){
             log.info("Got Request with no session");
 
@@ -39,6 +43,8 @@ public class SessionFilter implements Filter {
             noSessionRequired.add("/user");
             noSessionRequired.add("/user/session");
             noSessionRequired.add("/user/sessionkill");
+
+
 
             //if request is for endpoints that don't need a session
             if(noSessionRequired.contains(req.getRequestURI())){
@@ -54,6 +60,7 @@ public class SessionFilter implements Filter {
             chain.doFilter(request,response);
         }
 
+    }
     }
 
     @Override

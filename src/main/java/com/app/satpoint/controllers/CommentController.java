@@ -3,6 +3,7 @@ package com.app.satpoint.controllers;
 import com.app.satpoint.models.Comment;
 import com.app.satpoint.models.CommentDTO;
 import com.app.satpoint.services.CommentService;
+import org.apache.tomcat.util.net.jsse.JSSEUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,13 @@ public class CommentController {
     @Autowired
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
+    }
+
+    @CrossOrigin(value = "http://localhost:4200", allowCredentials = "true")
+    @RequestMapping(path="/new", method=RequestMethod.OPTIONS)
+    public ResponseEntity getOptions() {
+        System.out.println("in options");
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/noradId/{noradId}")
@@ -45,9 +53,9 @@ public class CommentController {
 
     //uses comment class to create new comment
     @PostMapping()
-    public ResponseEntity<List<Comment>> addComment(@RequestBody Comment comment){
+    public ResponseEntity<List<Comment>> addComment(@RequestBody Comment comment) {
         List<Comment> commentList = commentService.addComment(comment);
-        if(commentList.isEmpty()){
+        if (commentList.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.accepted().body(commentList);
