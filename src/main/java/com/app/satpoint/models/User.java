@@ -27,6 +27,12 @@ public class User implements Serializable{
     private String email;
     private String aboutMe;
 
+    @Column(nullable = true)
+    private double longitude = 0;
+    @Column(nullable = true)
+    private double latitude = 0;
+
+
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favedBy")
     @JsonIgnore
     private Set<Satellite> favorites;
@@ -34,15 +40,17 @@ public class User implements Serializable{
     public User() {
     }
 
-    public User(long id, String username, String password, String firstName, String lastName, String email, Set<Satellite> favorites, String aboutMe) {
+    public User(long id, String username, String password, String firstName, String lastName, String email, String aboutMe, double latitude, double longitude, Set<Satellite> favorites) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.favorites = favorites;
         this.aboutMe = aboutMe;
+        this.favorites = favorites;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public long getId() {
@@ -107,6 +115,22 @@ public class User implements Serializable{
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
     @Override

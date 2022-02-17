@@ -22,7 +22,7 @@ public class ProfileService {
 
     public User editUser(User user){
         try{
-            Optional<User> userz = logonDao.findByUsername(user.getUsername());
+            Optional<User> userz = logonDao.findById(user.getId());
 
             if(userz.isPresent()){
                 User u = userz.get();
@@ -42,6 +42,12 @@ public class ProfileService {
                     }
                 }
                 u.setAboutMe(user.getAboutMe());
+                if(user.getLatitude() != 0){
+                    u.setLatitude(user.getLatitude());
+                }
+                if(user.getLongitude() !=0){
+                    u.setLongitude(user.getLongitude());
+                }
                 dao.save(u);
                 return logonDao.getById(u.getId());
                 }

@@ -23,7 +23,15 @@ public class ProfileController {
         this.service = service;
     }
     @PostMapping
-    public ResponseEntity<User> editProfile(@RequestBody User user){
+    public ResponseEntity<User> editProfile(@RequestBody User user, HttpServletRequest request){
+        int userId = 0;
+        try {
+            userId = Integer.parseInt((String) request.getSession(false).getAttribute("userId"));
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
+        user.setId(userId);
+
         User updatedUser = service.editUser(user);
         if(updatedUser != null){
             return ResponseEntity.status(201).body(updatedUser);
