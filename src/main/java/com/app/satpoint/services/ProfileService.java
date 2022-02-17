@@ -41,6 +41,7 @@ public class ProfileService {
                         u.setLastName(user.getLastName());
                     }
                 }
+                u.setAboutMe(user.getAboutMe());
                 dao.save(u);
                 return logonDao.getById(u.getId());
                 }
