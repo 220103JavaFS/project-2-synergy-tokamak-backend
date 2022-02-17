@@ -1,4 +1,5 @@
 package com.app.satpoint.models;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class User implements Serializable{
     private long id;
     @Column(nullable = false, unique = true)
     private String username;
-    @JsonIgnore
+    @JsonBackReference
     public String password;
     private String firstName;
     private String lastName;
