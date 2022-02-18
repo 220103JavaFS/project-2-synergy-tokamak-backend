@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -56,9 +57,16 @@ public class CommentController {
 
     //uses commentDTO to create a new comment
     @PostMapping("/new")
-    public ResponseEntity<List<Comment>> addCommentByNoradId(@RequestBody CommentDTO commentDTO){
+    public ResponseEntity<List<Comment>> addCommentByNoradId(@RequestBody CommentDTO commentDTO, HttpServletRequest request){
+        int userId = 0;
+        try {
+            userId = Integer.parseInt((String) request.getSession(false).getAttribute("userId"));
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
+
         List<Comment> commentList = commentService.addCommentByNoradId(commentDTO.getNoradId(),
-                commentDTO.getUserId(), commentDTO.getMessage(), commentDTO.getDate());
+                userId, commentDTO.getMessage(), commentDTO.getDate());
         if(commentList.isEmpty()){
             return ResponseEntity.notFound().build();
         }
@@ -66,8 +74,15 @@ public class CommentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteComment(@PathVariable("id") int commentId){
-        if(commentService.deleteComment(commentId)){
+    public ResponseEntity deleteComment(@PathVariable("id") int commentId, HttpServletRequest request){
+        int userId = 0;
+        try {
+            userId = Integer.parseInt((String) request.getSession(false).getAttribute("userId"));
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
+
+        if(commentService.deleteComment(commentId, userId)){
             return ResponseEntity.ok().build();
         }
         else {
