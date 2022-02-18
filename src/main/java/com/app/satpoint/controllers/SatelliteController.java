@@ -36,6 +36,15 @@ public class SatelliteController {
         return ResponseEntity.ok().body(satService.getSatelliteByNoradId(noradId));
     }
 
+    @GetMapping("/check")
+    public ResponseEntity<Satellite> checkByNoradId(@RequestParam("noradId") int noradId){
+        Satellite sat = satService.checkByNoradId(noradId);
+        if(sat != null) {
+            return ResponseEntity.ok().body(sat);
+        }
+        return ResponseEntity.status(404).build();
+    }
+
     @GetMapping("/userId/{userId}")
     public ResponseEntity<Set<Satellite>> getUserFavoriteSatellites(@PathVariable("userId") int userId){
         return ResponseEntity.ok().body(satService.getFavoriteSatellites(userId));

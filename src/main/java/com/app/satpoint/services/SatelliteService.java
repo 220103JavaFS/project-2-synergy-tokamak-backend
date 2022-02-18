@@ -40,6 +40,17 @@ public class SatelliteService {
         return new Satellite();
     }
 
+    public Satellite checkByNoradId(int noradId){
+        if(noradId >= 0){
+            Optional<Satellite> satelliteOptional = satelliteDAO.findSatelliteByNoradId(noradId);
+            if(satelliteOptional.isPresent()) {
+                return satelliteOptional.get();
+            }
+        }
+
+        return null;
+    }
+
     public boolean addSatellite(Satellite satellite){
         try{
             satellite.setNumFavorites(0);
