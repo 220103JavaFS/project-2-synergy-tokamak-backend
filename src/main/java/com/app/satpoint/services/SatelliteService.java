@@ -96,8 +96,8 @@ public class SatelliteService {
         return Collections.emptySet();
     }
 
-    public List<Satellite> findTop10ByOrderByNumFavoritesDesc(int userId) {
-        Optional<List<Satellite>> satelliteOptional = satelliteDAO.findTop10ByOrderByNumFavoritesDesc();
+    public List<Satellite> findTopByOrderByNumFavoritesDesc(int userId) {
+        Optional<List<Satellite>> satelliteOptional = satelliteDAO.findTop20ByOrderByNumFavoritesDesc();
         Optional<User> userOptional = userDAO.findById((long)userId);
         User user = userOptional.get();
         if(satelliteOptional.isPresent()){

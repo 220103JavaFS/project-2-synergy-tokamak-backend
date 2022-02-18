@@ -90,7 +90,7 @@ public class SatelliteController {
             return ResponseEntity.internalServerError().build();
         }
 
-        return ResponseEntity.ok().body(satService.findTop10ByOrderByNumFavoritesDesc(userId));
+        return ResponseEntity.ok().body(satService.findTopByOrderByNumFavoritesDesc(userId));
     }
 
 
