@@ -1,8 +1,6 @@
 package com.app.satpoint.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Reference;
 
 import javax.persistence.*;
 
@@ -27,8 +25,7 @@ public class Comment implements Serializable {
     private Satellite satellite;
 
     @Transient
-
-    private int satNorad;
+    private int satNoradId;
 
     @Column(nullable = false, unique = false)
     private String comment;
@@ -43,6 +40,15 @@ public class Comment implements Serializable {
         this.commentId = commentId;
         this.user = user;
         this.satellite = satellite;
+        this.comment = comment;
+        this.date = date;
+    }
+
+    public Comment(long commentId, User user, Satellite satellite, int satNoradId, String comment, String date) {
+        this.commentId = commentId;
+        this.user = user;
+        this.satellite = satellite;
+        this.satNoradId = satNoradId;
         this.comment = comment;
         this.date = date;
     }
@@ -85,6 +91,14 @@ public class Comment implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public int getSatNoradId() {
+        return satNoradId;
+    }
+
+    public void setSatNoradId(int satNoradId) {
+        this.satNoradId = satNoradId;
     }
 
     @Override

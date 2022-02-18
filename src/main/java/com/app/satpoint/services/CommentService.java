@@ -34,9 +34,13 @@ public class CommentService {
         if(s.getSatName() == null){
             return new ArrayList<>();
         }
-        Optional<List<Comment>> commentList = commentDAO.findCommentsBySatellite(s);
-        if(commentList.isPresent()){
-            return commentList.get();
+        Optional<List<Comment>> commentListOptional = commentDAO.findCommentsBySatellite(s);
+        if(commentListOptional.isPresent()){
+            List<Comment> commentList = commentListOptional.get();
+            commentList.forEach(comment -> {
+                comment.setSatNoradId(comment.getSatellite().getNoradId());
+            });
+            return commentList;
         }
         else{
             return new ArrayList<>();
@@ -51,11 +55,15 @@ public class CommentService {
             return new ArrayList<>();
         }
 
-        Optional<List<Comment>> commentList = commentDAO.findCommentsByUser(user);
-        if(commentList.isPresent()){
-            return commentList.get();
+        Optional<List<Comment>> commentListOptional = commentDAO.findCommentsByUser(user);
+        if(commentListOptional.isPresent()){
+            List<Comment> commentList = commentListOptional.get();
+            commentList.forEach(comment -> {
+                comment.setSatNoradId(comment.getSatellite().getNoradId());
+            });
+            return commentList;
         }
-        else {
+        else{
             return new ArrayList<>();
         }
     }

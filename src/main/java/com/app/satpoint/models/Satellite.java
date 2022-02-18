@@ -146,7 +146,7 @@ public class Satellite implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(satId, noradId, satName, satPicture, numFavorites, comments, favedBy);
+        return Objects.hash(satId, noradId, satName, satPicture, numFavorites);
     }
 
     @Override
