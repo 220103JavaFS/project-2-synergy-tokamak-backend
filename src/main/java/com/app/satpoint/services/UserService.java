@@ -71,8 +71,9 @@ public class UserService {
         if(favSats.add(sat)){
             user.setFavorites(favSats);
             sat.getFavedBy().add(user);
+            sat.setNumFavorites(sat.getNumFavorites()+1);
             userDAO.save(user);
-
+            satelliteDAO.save(sat);
             return true;
         }
         return false;
@@ -92,7 +93,9 @@ public class UserService {
 
         if(user.getFavorites().remove(sat)){
             sat.getFavedBy().remove(user);
+            sat.setNumFavorites(sat.getNumFavorites()-1);
             userDAO.save(user);
+            satelliteDAO.save(sat);
             return true;
         }
         return false;
