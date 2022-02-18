@@ -58,6 +58,8 @@ public class LogonController {
 
             result.add(Long.toString(user.getId()));
             result.add(user.getUsername());
+            result.add(Double.toString(user.getLatitude()));
+            result.add(Double.toString(user.getLongitude()));
             return ResponseEntity.ok().body(result);
             //return ResponseEntity.ok().build();
 //            sessionController.testSession(Long.toString(user.getId()), session);
