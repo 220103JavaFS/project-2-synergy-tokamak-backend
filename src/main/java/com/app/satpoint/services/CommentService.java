@@ -119,10 +119,10 @@ public class CommentService {
         }
     }
 
-    public boolean deleteComment(int commentId){
+    public boolean deleteComment(int commentId, int userId){
         try{
             Optional<Comment> commentOptional = commentDAO.findById((long)commentId);
-            if(commentOptional.isPresent()){
+            if(commentOptional.isPresent() && userId == commentOptional.get().getUser().getId()){
                commentDAO.delete(commentOptional.get());
                return true;
             }
