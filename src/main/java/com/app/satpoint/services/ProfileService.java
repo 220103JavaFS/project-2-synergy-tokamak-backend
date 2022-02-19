@@ -42,10 +42,10 @@ public class ProfileService {
                     }
                 }
                 u.setAboutMe(user.getAboutMe());
-                if(user.getLatitude() != 0){
+                if(user.getLatitude() >= -90 && user.getLatitude() <= 90){
                     u.setLatitude(user.getLatitude());
                 }
-                if(user.getLongitude() !=0){
+                if(user.getLongitude() >= -180 && user.getLongitude() <= 180){
                     u.setLongitude(user.getLongitude());
                 }
                 dao.save(u);

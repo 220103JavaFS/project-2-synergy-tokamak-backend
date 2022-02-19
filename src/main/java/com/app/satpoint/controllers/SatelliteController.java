@@ -42,7 +42,7 @@ public class SatelliteController {
         if(sat != null) {
             return ResponseEntity.ok().body(sat);
         }
-        return ResponseEntity.status(404).build();
+        return ResponseEntity.status(204).build();
     }
 
     @GetMapping("/userId/{userId}")
