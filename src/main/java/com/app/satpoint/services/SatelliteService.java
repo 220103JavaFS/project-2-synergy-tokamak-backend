@@ -40,6 +40,14 @@ public class SatelliteService {
         return new Satellite();
     }
 
+    public Satellite getSatByName(String satName){
+        Optional<Satellite> satellite = satelliteDAO.findSatelliteBySatName(satName);
+        if(satellite.isPresent()){
+            return satellite.get();
+        }
+        return null;
+    }
+
     public Satellite checkByNoradId(int noradId){
         if(noradId >= 0){
             Optional<Satellite> satelliteOptional = satelliteDAO.findSatelliteByNoradId(noradId);

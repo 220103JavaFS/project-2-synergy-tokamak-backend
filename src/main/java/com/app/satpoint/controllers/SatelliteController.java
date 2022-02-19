@@ -36,6 +36,15 @@ public class SatelliteController {
         return ResponseEntity.ok().body(satService.getSatelliteByNoradId(noradId));
     }
 
+    @GetMapping("/satName")
+    public ResponseEntity<Satellite> getSatByName(@RequestParam("satName") String satName){
+        Satellite satellite = satService.getSatByName(satName);
+        if(satellite != null){
+            return ResponseEntity.ok().body(satellite);
+        }
+        return ResponseEntity.status(204).build();
+    }
+
     @GetMapping("/check")
     public ResponseEntity<Satellite> checkByNoradId(@RequestParam("noradId") int noradId){
         Satellite sat = satService.checkByNoradId(noradId);
