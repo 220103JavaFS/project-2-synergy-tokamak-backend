@@ -9,7 +9,11 @@ A platform where fellow users can view, commentate and share their satellite exp
 
 ## Technologies Used
 
-* Angular - version 13.2.1
+* Spring Data
+* Spring Boot
+* Spring MVC
+* Spring Session
+* Log4J
 
 ## Features
 
@@ -25,9 +29,3 @@ A User can:
 * View a list of  the most popular satellites of the user base.
 * Make a comment about a satellite.
 * Display comments by satellite
-
-To-do list:
-* Refactor Code for more modular design
-* Allow a user to view other user's profile
-* Incorporate satellite images via usage of multiple APIs (e.g Google map API)
-* Ability to like/dislike  comments with respective buttons
